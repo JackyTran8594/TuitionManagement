@@ -1,0 +1,116 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-1">
+        <createTable tableName="fee">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="feePK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="description" type="nvarchar(1000)"/>
+            <column name="header" type="nvarchar(1000)"/>
+            <column name="money" type="numeric(18, 2)"/>
+            <column name="fee_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-2">
+        <createTable tableName="object_list">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="object_listPK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="description" type="nvarchar(1000)"/>
+            <column name="header" type="nvarchar(1000)"/>
+            <column name="is_specific" type="bit"/>
+            <column name="money" type="numeric(18, 2)"/>
+            <column name="shift" type="int"/>
+            <column name="slop" type="float(53)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-3">
+        <createTable tableName="student">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="studentPK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="citizen_id" type="varchar(20)"/>
+            <column name="course_id" type="varchar(255)"/>
+            <column name="first_name" type="nvarchar(100)"/>
+            <column name="full_name" type="nvarchar(100)"/>
+            <column name="image" type="nvarchar(100)"/>
+            <column name="last_name" type="nvarchar(100)"/>
+            <column name="note" type="nvarchar(500)"/>
+            <column name="student_id" type="varchar(255)"/>
+            <column name="temp_name" type="nvarchar(100)"/>
+            <column name="train_class_id" type="nvarchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-4">
+        <createTable tableName="train_class">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="train_classPK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="description" type="nvarchar(1000)"/>
+            <column name="header" type="nvarchar(1000)"/>
+            <column name="money" type="numeric(18, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-5">
+        <createTable tableName="tuition">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tuitionPK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="money" type="numeric(18, 2)"/>
+            <column name="note" type="nvarchar(500)"/>
+            <column name="student_id" type="varchar(255)"/>
+            <column name="time_stamp" type="datetime2"/>
+            <column name="tuition_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-6">
+        <createTable tableName="user_entity">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_entityPK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="code" type="varchar(30)"/>
+            <column name="email" type="varchar(500)"/>
+            <column name="fullname" type="nvarchar(500)"/>
+            <column name="note" type="nvarchar(500)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(255)"/>
+            <column name="username" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-7">
+        <addForeignKeyConstraint baseColumnNames="tuition_id" baseTableName="tuition" constraintName="FK47d5j4qtepel1kx7vvl5fregg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="student" validate="true"/>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1660385333950-8">
+        <addForeignKeyConstraint baseColumnNames="fee_id" baseTableName="fee" constraintName="FKpteli1hf5yrmoo88mmrpngu32" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="student" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
