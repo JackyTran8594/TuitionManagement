@@ -46,8 +46,12 @@ public class Student extends Auditable<String> implements Serializable {
     @Column(name = "image", columnDefinition = "nvarchar(100)")
     private String image;
 
-    @Column(name = "train_class_id", columnDefinition = "nvarchar(100)")
-    private String trainClassId;
+//    @Column(name = "train_class_id", columnDefinition = "nvarchar(100)")
+//    private String trainClassId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trainClass_id", referencedColumnName = "id")
+    private TrainClass trainClass;
 
 
     @Column(name = "note", columnDefinition = "nvarchar(500)")

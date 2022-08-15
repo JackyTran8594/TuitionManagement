@@ -30,4 +30,7 @@ public class TrainClass extends Auditable<String> implements Serializable {
 
     @Column(name = "money", precision = 18, scale = 2)
     private BigDecimal money;
+
+    @OneToOne(mappedBy = "trainClass")
+    private Student student;
 }
