@@ -6,7 +6,7 @@ import com.hta.tuitionmanagement.repo.UserEntityRepositoryCustom;
 import java.util.List;
 import java.util.Map;
 
-public class UserEntityRepositoryCustomImpl extends BaseCustomRespository<UserEntity> implements UserEntityRepositoryCustom {
+public class UserEntityRepositoryCustomImpl extends BaseCustomRepository<UserEntity> implements UserEntityRepositoryCustom {
     @Override
     public List search(Map searchParam, Class clazz) {
         return null;

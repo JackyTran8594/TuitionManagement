@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public abstract class BaseCustomRespository<T> {
+public abstract class BaseCustomRepository<T> {
 
     @PersistenceContext
     protected EntityManager entityManager;
