@@ -36,10 +36,10 @@ public class Role extends Auditable<String> implements Serializable {
     @OneToOne(mappedBy = "role")
     private UserEntity user;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "role_function", joinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")},inverseJoinColumns ={@JoinColumn(name="function_id", referencedColumnName="id")})
-//    @JsonIgnore
-//    private Set<Function> functions = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "role_function", joinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")},inverseJoinColumns ={@JoinColumn(name="function_id", referencedColumnName="id")})
+    @JsonIgnore
+    private Set<Function> functions = new HashSet<>();
 
 
 }

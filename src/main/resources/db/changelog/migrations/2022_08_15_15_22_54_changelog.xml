@@ -1,0 +1,59 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="Modern 14 (generated)" id="1660576982845-1">
+        <createTable tableName="function">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="functionPK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="action_code" type="varchar(255)"/>
+            <column name="description" type="nvarchar(500)"/>
+            <column name="menu_code" type="varchar(255)"/>
+            <column name="menu_name" type="nvarchar(500)"/>
+            <column name="parent_code" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Modern 14 (generated)" id="1660576982845-2">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rolePK"/>
+            </column>
+            <column name="created_date" type="datetime2"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="last_modified_by" type="varchar(255)"/>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="code" type="varchar(255)"/>
+            <column name="description" type="nvarchar(500)"/>
+            <column name="name" type="nvarchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Modern 14 (generated)" id="1660576982845-3">
+        <createTable tableName="role_function">
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="function_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Modern 14 (generated)" id="1660576982845-4">
+        <addColumn tableName="user_entity">
+            <column name="role_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Modern 14 (generated)" id="1660576982845-5">
+        <addForeignKeyConstraint baseColumnNames="function_id" baseTableName="role_function" constraintName="FK4dphexeqfirp7d1tpy9lm4x7b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="function" validate="true"/>
+    </changeSet>
+    <changeSet author="Modern 14 (generated)" id="1660576982845-6">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_entity" constraintName="FKji3yqmrrat4jkqnpfla6tpkqx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" validate="true"/>
+    </changeSet>
+    <changeSet author="Modern 14 (generated)" id="1660576982845-7">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_function" constraintName="FKnni0m4md3cq3f7wbwgrv9i5wb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

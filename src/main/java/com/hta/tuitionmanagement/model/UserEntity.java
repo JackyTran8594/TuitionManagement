@@ -44,4 +44,7 @@ public class UserEntity extends Auditable<String> implements Serializable {
     @Column(name = "note", columnDefinition="nvarchar(500)")
     private String note;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
 }
