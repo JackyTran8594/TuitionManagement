@@ -1,16 +1,14 @@
 package com.hta.tuitionmanagement.controller;
 
 import com.hta.tuitionmanagement.dto.response.FeeDTO;
+import com.hta.tuitionmanagement.dto.response.RoleDTO;
 import com.hta.tuitionmanagement.service.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +31,30 @@ public class FeeController extends BaseController {
         List<FeeDTO> listData = feeService.search(params);
         Long totalElement = feeService.count(params);
         return new PageImpl<>(listData,page,totalElement);
+    }
+    @PostMapping("")
+    public FeeDTO addFee(@RequestBody FeeDTO item) {
+        return feeService.save(item);
+    }
+
+    @PutMapping("/{id}")
+    public FeeDTO updateFee(@RequestBody FeeDTO item) {
+        item.setId(item.getId());
+        return feeService.save(item);
+    }
+
+    @GetMapping("/{id}")
+    public FeeDTO getById(@PathVariable(value="id") Long id) {
+        return feeService.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteById(@PathVariable(value="id") Long id) {
+        return feeService.deleteById(id);
+    }
+
+    @PostMapping("/deleteAll")
+    public boolean deleteById(@RequestBody  List<Long> listId) {
+        return feeService.deleteAll(listId);
     }
 }
