@@ -32,6 +32,6 @@ public class Fee extends Auditable<String> implements Serializable {
     private BigDecimal money;
 
     @ManyToOne
-    @JoinColumn(name = "fee_id", nullable = true, referencedColumnName = "id")
+    @JoinColumn(name = "student_id", nullable = true, referencedColumnName = "id")
     private Student student;
 }

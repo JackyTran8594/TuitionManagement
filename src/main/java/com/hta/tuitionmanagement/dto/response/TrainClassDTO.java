@@ -1,13 +1,11 @@
 package com.hta.tuitionmanagement.dto.response;
 
 import com.hta.tuitionmanagement.dto.BaseDTO;
-import com.hta.tuitionmanagement.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FeeDTO extends BaseDTO<String> implements Serializable {
+public class TrainClassDTO extends BaseDTO<String> implements Serializable {
 
     private Long id;
 
@@ -25,5 +23,5 @@ public class FeeDTO extends BaseDTO<String> implements Serializable {
 
     private BigDecimal money;
 
-    private Long student_id;
+//    private Long fee_id;
 }

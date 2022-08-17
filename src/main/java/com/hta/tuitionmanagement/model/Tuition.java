@@ -22,8 +22,8 @@ public class Tuition extends Auditable<String> implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name="student_id")
-    private String studentId;
+//    @Column(name="student_id")
+//    private String studentId;
 
     @Column(name = "money", precision = 18, scale = 2)
     private BigDecimal money;

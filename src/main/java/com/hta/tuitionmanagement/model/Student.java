@@ -22,8 +22,8 @@ public class Student extends Auditable<String> implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name="student_id")
-    private String studentId;
+    @Column(name="registration_id")
+    private String registrationId;
 
     @Column(name = "course_id")
     private String courseId;
@@ -49,7 +49,7 @@ public class Student extends Auditable<String> implements Serializable {
 //    @Column(name = "train_class_id", columnDefinition = "nvarchar(100)")
 //    private String trainClassId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "trainClass_id", referencedColumnName = "id")
     private TrainClass trainClass;
 

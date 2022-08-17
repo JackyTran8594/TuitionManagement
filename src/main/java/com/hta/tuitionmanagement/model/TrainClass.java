@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "train_class")
@@ -31,6 +32,6 @@ public class TrainClass extends Auditable<String> implements Serializable {
     @Column(name = "money", precision = 18, scale = 2)
     private BigDecimal money;
 
-    @OneToOne(mappedBy = "trainClass")
-    private Student student;
+    @OneToMany(mappedBy = "trainClass")
+    private Set<Student> Student;
 }
