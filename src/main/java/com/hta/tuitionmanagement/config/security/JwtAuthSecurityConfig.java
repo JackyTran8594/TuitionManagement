@@ -2,6 +2,7 @@ package com.hta.tuitionmanagement.config.security;
 
 import com.hta.tuitionmanagement.config.Profiles;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -34,10 +35,16 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
 
+    @Value("${app.user.super}")
+    private String superUser;
+
+    @Value("${app.user.password}")
+    private String superPassword;
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin"))
+        auth.inMemoryAuthentication().withUser(superUser).password(passwordEncoder().encode(superPassword))
                 .roles("ADMIN");
 
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -95,7 +102,7 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

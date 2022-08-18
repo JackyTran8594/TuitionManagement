@@ -63,7 +63,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         //once we get the token validate it
-        if (username != null && (authentication == null || "anonymousUser".equals((String) authentication.getPrincipal()))) {
+        if (username != null && (authentication == null || "anonymousUser".equalsIgnoreCase((String) authentication.getPrincipal()))) {
             UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(username);
 
             // if token is valid configure Spring security to manually set authentication
