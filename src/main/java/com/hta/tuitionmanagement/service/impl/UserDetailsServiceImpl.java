@@ -5,6 +5,7 @@ import com.hta.tuitionmanagement.repo.UserEntityRepository;
 import com.hta.tuitionmanagement.utils.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,13 @@ import java.util.List;
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    @Value("${app.user.super}")
+    private String superUser;
+
+    @Value("${app.user.password}")
+    private String superPassword;
+
+    private String password;
     @Autowired
     private UserEntityRepository userEntityRepository;
 
@@ -34,6 +42,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             role.add("USER");
             List<Long> listRole = new ArrayList<Long>();
             newUser = new User(user.getUsername(), user.getPassword(), buildSimpleGrantedAuthorities(role));
+        } else {
+            if (username.equals(superUser)) {
+                List<String> role = new ArrayList<String>();
+                role.add("ADMIN");
+                List<Long> listRole = new ArrayList<Long>();
+                newUser = new User(username, superPassword, buildSimpleGrantedAuthorities(role));
+            }
         }
         return newUser;
     }

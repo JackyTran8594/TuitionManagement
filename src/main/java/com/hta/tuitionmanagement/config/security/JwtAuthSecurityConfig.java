@@ -2,6 +2,7 @@ package com.hta.tuitionmanagement.config.security;
 
 import com.hta.tuitionmanagement.config.Profiles;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,8 +18,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -30,10 +35,16 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
 
+    @Value("${app.user.super}")
+    private String superUser;
+
+    @Value("${app.user.password}")
+    private String superPassword;
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin"))
+        auth.inMemoryAuthentication().withUser(superUser).password(passwordEncoder().encode(superPassword))
                 .roles("ADMIN");
 
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -42,7 +53,7 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // enable cors and disable csrf
-        http.cors().disable();
+        http = http.cors().and();
         http.csrf().disable();
 
         // set sesison management to stateless
@@ -57,7 +68,11 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // public endpoints
                 .antMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/fee/**").permitAll()
+                .antMatchers("/api/function/**").permitAll()
+                .antMatchers("/api/role/**").permitAll()
+                .antMatchers("/api/trainClass/**").permitAll();
+//                .anyRequest().authenticated();
         // add jwt token filter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -82,6 +97,16 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 //    @Bean
