@@ -68,11 +68,11 @@ public class JwtAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // public endpoints
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/fee/**").permitAll()
-                .antMatchers("/api/function/**").permitAll()
-                .antMatchers("/api/role/**").permitAll()
-                .antMatchers("/api/trainClass/**").permitAll();
-//                .anyRequest().authenticated();
+//                .antMatchers("/api/fee/**").permitAll()
+//                .antMatchers("/api/function/**").permitAll()
+//                .antMatchers("/api/role/**").permitAll()
+//                .antMatchers("/api/trainClass/**").permitAll();
+                .anyRequest().authenticated();
         // add jwt token filter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

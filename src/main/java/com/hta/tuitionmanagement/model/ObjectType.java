@@ -1,5 +1,7 @@
 package com.hta.tuitionmanagement.model;
 
+import com.hta.tuitionmanagement.dto.response.ObjectTypeDTO;
+import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,4 +44,13 @@ public class ObjectType extends Auditable<String> implements Serializable {
 
     @OneToMany(mappedBy = "objectType")
     private Set<Student> studentList;
+
+    public void updateInfo(ObjectTypeDTO dto){
+        setHeader(dto.getHeader());
+        setDescription(dto.getDescription());
+        setMoney(dto.getMoney());
+        setSlop(dto.getSlop());
+        setShift(dto.getShift());
+        setIsSpecific(dto.getIsSpecific());
+    }
 }

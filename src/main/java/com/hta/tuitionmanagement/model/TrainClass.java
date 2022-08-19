@@ -1,5 +1,6 @@
 package com.hta.tuitionmanagement.model;
 
+import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,4 +35,10 @@ public class TrainClass extends Auditable<String> implements Serializable {
 
     @OneToMany(mappedBy = "trainClass")
     private Set<Student> studentList;
+
+    public void updateInfo(TrainClassDTO dto){
+        setHeader(dto.getHeader());
+        setDescription(dto.getDescription());
+        setMoney(dto.getMoney());
+    }
 }

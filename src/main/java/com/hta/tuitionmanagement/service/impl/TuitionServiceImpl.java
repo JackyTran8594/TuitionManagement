@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +50,6 @@ public class TuitionServiceImpl implements TuitionService {
         }
         return null;
     }
-
     @Override
     public TuitionDTO save(TuitionRequest item) {
         Tuition entity ;
@@ -64,7 +64,9 @@ public class TuitionServiceImpl implements TuitionService {
         if(!DataUtils.isNullOrEmpty(item.getListFeeId())) {
             Set<Fee> list = new HashSet<>();
             item.getListFeeId().forEach(id -> {
-                list.add(feeRepo.findById(id).get());
+                Fee fee = feeRepo.findById(id).get();
+                list.add(fee);
+//                System.out.println(id);
             });
             student.setFeeList(list);
         }

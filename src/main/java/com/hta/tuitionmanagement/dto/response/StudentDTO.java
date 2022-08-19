@@ -31,4 +31,9 @@ public class StudentDTO extends BaseDTO<String> implements Serializable {
     private String fullName;
 
     private String image;
+
+    private String note;
+
+//    private Long trainClassId;
+
 }

@@ -1,5 +1,7 @@
 package com.hta.tuitionmanagement.model;
 
+import com.hta.tuitionmanagement.dto.response.StudentDTO;
+import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -60,11 +63,24 @@ public class Student extends Auditable<String> implements Serializable {
     @OneToMany(mappedBy = "student")
     private Set<Tuition> tuitionList;
 
-    @ManyToMany(mappedBy = "studentList",fetch = FetchType.LAZY)
-    private Set<Fee> feeList;
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(name = "student_fee", joinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")},inverseJoinColumns ={@JoinColumn(name="fee_id", referencedColumnName="id")})
+    private Set<Fee> feeList = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "object_id", referencedColumnName = "id")
     private ObjectType objectType;
 
+    public void updateInfo(StudentDTO dto){
+        setRegistrationId(dto.getRegistrationId());
+        setCourseId(dto.getCourseId());
+        setCitizenId(dto.getCitizenId());
+        setTempName(dto.getTempName());
+        setFirstName(dto.getFirstName());
+        setLastName(dto.getLastName());
+        setFullName(dto.getFullName());
+        setImage(dto.getImage());
+        setNote(dto.getNote());
+
+    }
 }

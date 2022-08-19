@@ -1,6 +1,8 @@
 package com.hta.tuitionmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hta.tuitionmanagement.dto.response.FeeDTO;
+import com.hta.tuitionmanagement.dto.response.ObjectTypeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +35,14 @@ public class Fee extends Auditable<String> implements Serializable {
     @Column(name = "money", precision = 18, scale = 2)
     private BigDecimal money;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "feeList")
 //    @JoinColumn(name = "student_id", nullable = true, referencedColumnName = "id")
-    @JoinTable(name = "student_fee", joinColumns = {@JoinColumn(name="fee_id", referencedColumnName="id")},inverseJoinColumns ={@JoinColumn(name="student_id", referencedColumnName="id")})
     @JsonIgnore
-    private Set<Student> studentList;
+    private Set<Student> studentList = new HashSet<>();
+
+    public void updateInfo(FeeDTO dto){
+        setHeader(dto.getHeader());
+        setDescription(dto.getDescription());
+        setMoney(dto.getMoney());
+    }
 }

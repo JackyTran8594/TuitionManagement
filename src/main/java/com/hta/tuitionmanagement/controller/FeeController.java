@@ -38,8 +38,8 @@ public class FeeController extends BaseController {
     }
 
     @PutMapping("/{id}")
-    public FeeDTO updateFee(@RequestBody FeeDTO item) {
-        item.setId(item.getId());
+    public FeeDTO updateFee(@RequestBody FeeDTO item,@PathVariable final Long id) {
+        item.setId(id);
         return feeService.save(item);
     }
 

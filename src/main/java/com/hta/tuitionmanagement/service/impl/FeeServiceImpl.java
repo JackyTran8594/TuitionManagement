@@ -44,8 +44,11 @@ public class FeeServiceImpl implements FeeService {
     public FeeDTO save(FeeDTO dto) {
         Fee entity;
         if (!DataUtils.isNullOrEmpty(dto.getId())) {
-            dto.setLastModifiedDate(LocalDateTime.now());
-            entity = mapper.toPersistenceBean(dto);
+//            dto.setLastModifiedDate(LocalDateTime.now());
+//            entity = mapper.toPersistenceBean(dto);
+            entity = feeRepository.getById(dto.getId());
+            entity.setLastModifiedDate(LocalDateTime.now());
+            entity.updateInfo(dto);
         } else {
             entity = mapper.toPersistenceBean(dto);
             entity.setStatus(ACTIVE);

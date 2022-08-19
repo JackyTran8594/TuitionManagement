@@ -32,7 +32,7 @@ public abstract class Auditable<T> implements Serializable {
 
     @CreatedBy
     @Column(name = "created_by")
-    protected T createdby;
+    protected T createdBy;
 
     @CreatedDate
     @JsonSerialize(using = LocalDateTimeSerializer.class)

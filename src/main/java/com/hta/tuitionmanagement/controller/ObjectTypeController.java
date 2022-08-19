@@ -37,8 +37,8 @@ public class ObjectTypeController extends BaseController{
     }
 
     @PutMapping("/{id}")
-    public ObjectTypeDTO updateTrainClass(@RequestBody ObjectTypeDTO item) {
-        item.setId(item.getId());
+    public ObjectTypeDTO updateTrainClass(@RequestBody ObjectTypeDTO item,@PathVariable final Long id) {
+        item.setId(id);
         return service.save(item);
     }
 

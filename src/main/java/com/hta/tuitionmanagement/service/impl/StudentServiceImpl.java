@@ -1,10 +1,16 @@
 package com.hta.tuitionmanagement.service.impl;
 
-import com.hta.tuitionmanagement.dto.response.ObjectTypeDTO;
+import com.hta.tuitionmanagement.dto.request.TuitionRequest;
+import com.hta.tuitionmanagement.dto.response.StudentDTO;
+import com.hta.tuitionmanagement.dto.response.StudentDTO;
+import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.mapper.BaseMapper;
-import com.hta.tuitionmanagement.model.ObjectType;
-import com.hta.tuitionmanagement.repo.ObjectTypeRepository;
-import com.hta.tuitionmanagement.service.ObjectTypeService;
+import com.hta.tuitionmanagement.mapper.CustomMapper;
+import com.hta.tuitionmanagement.model.Student;
+import com.hta.tuitionmanagement.model.TrainClass;
+import com.hta.tuitionmanagement.model.Tuition;
+import com.hta.tuitionmanagement.repo.StudentRepository;
+import com.hta.tuitionmanagement.service.StudentService;
 import com.hta.tuitionmanagement.utils.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -13,72 +19,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static com.hta.tuitionmanagement.constants.Constant.ACTIVE;
 
 @Service
 @Slf4j
-public class ObjectTypeServiceImpl implements ObjectTypeService {
+public class StudentServiceImpl implements StudentService {
 
-    private static final BaseMapper<ObjectType, ObjectTypeDTO> mapper = new BaseMapper<>(ObjectType.class, ObjectTypeDTO.class);
-    private static final Logger logger = LoggerFactory.getLogger(ObjectTypeServiceImpl.class);
+    private static final BaseMapper<Student, StudentDTO> mapper = new BaseMapper<>(Student.class, StudentDTO.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     @Autowired
-    private ObjectTypeRepository repository;
+    private StudentRepository repository;
     @Override
-    public ObjectTypeDTO findById(Long id) {
-        Optional<ObjectType> entity = repository.findById(id);
+    public StudentDTO findById(Long id) {
+        Optional<Student> entity = repository.findById(id);
         if (entity.isPresent()) {
-            ObjectTypeDTO dto = mapper.toDtoBean(entity.get());
+            StudentDTO dto = mapper.toDtoBean(entity.get());
             return dto;
         }
         return null;
     }
 
     @Override
-    public ObjectTypeDTO save(ObjectTypeDTO dto) {
-        ObjectType entity;
+    public StudentDTO save(StudentDTO dto) {
+        Student entity;
         if (!DataUtils.isNullOrEmpty(dto.getId())) {
 //            dto.setLastModifiedDate(LocalDateTime.now());
 //            entity = mapper.toPersistenceBean(dto);
             entity = repository.getById(dto.getId());
             entity.setLastModifiedDate(LocalDateTime.now());
             entity.updateInfo(dto);
+
         } else {
             entity = mapper.toPersistenceBean(dto);
             entity.setStatus(ACTIVE);
         }
         return mapper.toDtoBean((repository.save(entity)));
-    }
-
-    @Override
-    public List<ObjectTypeDTO> findAll() {
-        List<ObjectType> entities = repository.findAll();
-        List<ObjectTypeDTO> listDTO = mapper.toDtoBean(entities);
-        return listDTO;
-    }
-
-    @Override
-    public List<ObjectTypeDTO> search(Map<String, Object> mapParam) {
-        Map<String, Object> parameters = new HashMap<>();
-        List<ObjectType> listEntity = repository.search(mapParam, ObjectType.class);
-        List<ObjectTypeDTO> listData = mapper.toDtoBean(listEntity);
-        return listData;
-    }
-
-    @Override
-    public Long count(Map<String, Object> mapParam) {
-        Long count = repository.count(mapParam);
-        return count;
-    }
-
-    @Override
-    public ObjectTypeDTO findByCode(String code) {
-        return null;
     }
 
     @Override
