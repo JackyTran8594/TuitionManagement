@@ -1,5 +1,6 @@
 package com.hta.tuitionmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,7 +33,9 @@ public class Fee extends Auditable<String> implements Serializable {
     @Column(name = "money", precision = 18, scale = 2)
     private BigDecimal money;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = true, referencedColumnName = "id")
-    private Student student;
+    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "student_id", nullable = true, referencedColumnName = "id")
+    @JoinTable(name = "student_fee", joinColumns = {@JoinColumn(name="fee_id", referencedColumnName="id")},inverseJoinColumns ={@JoinColumn(name="student_id", referencedColumnName="id")})
+    @JsonIgnore
+    private Set<Student> studentList;
 }

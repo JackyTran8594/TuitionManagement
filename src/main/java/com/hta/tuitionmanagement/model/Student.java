@@ -21,7 +21,7 @@ public class Student extends Auditable<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
+    //mã đăng ký học viên lấy từ báo cáo 1
     @Column(name="registration_id")
     private String registrationId;
 
@@ -53,19 +53,18 @@ public class Student extends Auditable<String> implements Serializable {
     @JoinColumn(name = "trainClass_id", referencedColumnName = "id")
     private TrainClass trainClass;
 
-
+    //Tên người bảo trợ (giáo viên phụ trách)
     @Column(name = "note", columnDefinition = "nvarchar(500)")
     private String note;
 
     @OneToMany(mappedBy = "student")
-    private Set<Tuition> Tuition;
+    private Set<Tuition> tuitionList;
 
-    @OneToMany(mappedBy = "student")
-    private Set<Fee> Fee;
+    @ManyToMany(mappedBy = "studentList",fetch = FetchType.LAZY)
+    private Set<Fee> feeList;
 
-
-
-//    @Column(name = "object_id", columnDefinition = "nvarchar(100)")
-//    private String objectId;
+    @ManyToOne
+    @JoinColumn(name = "object_id", referencedColumnName = "id")
+    private ObjectType objectType;
 
 }

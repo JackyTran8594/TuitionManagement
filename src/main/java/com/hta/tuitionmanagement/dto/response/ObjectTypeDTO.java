@@ -6,15 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class TrainClassDTO extends BaseDTO<String> implements Serializable {
-
+public class ObjectTypeDTO extends BaseDTO<String> implements Serializable {
     private Long id;
 
     private String header;
@@ -23,5 +22,9 @@ public class TrainClassDTO extends BaseDTO<String> implements Serializable {
 
     private BigDecimal money;
 
-//    private Long student_id;
+    private Float slop;
+
+    private Integer shift;
+
+    private Boolean isSpecific;
 }

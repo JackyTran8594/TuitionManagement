@@ -8,20 +8,17 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class TrainClassDTO extends BaseDTO<String> implements Serializable {
+public class TuitionDTO extends BaseDTO<String> implements Serializable {
 
     private Long id;
-
-    private String header;
-
-    private String description;
-
     private BigDecimal money;
-
-//    private Long student_id;
+    private LocalDateTime timeStamp;
+    private String note;
+    private Long studentId;
 }

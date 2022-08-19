@@ -8,14 +8,15 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
-@Table(name="object_list")
+@Table(name="object_type")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ObjectList extends Auditable<String> implements Serializable {
+public class ObjectType extends Auditable<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -38,4 +39,7 @@ public class ObjectList extends Auditable<String> implements Serializable {
 
     @Column(name = "is_specific")
     private Boolean isSpecific;
+
+    @OneToMany(mappedBy = "objectType")
+    private Set<Student> studentList;
 }

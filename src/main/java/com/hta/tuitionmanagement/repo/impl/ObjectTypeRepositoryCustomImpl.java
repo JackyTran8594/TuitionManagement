@@ -1,19 +1,19 @@
 package com.hta.tuitionmanagement.repo.impl;
 
-import com.hta.tuitionmanagement.model.Fee;
-import com.hta.tuitionmanagement.repo.FeeRepositoryCustom;
+import com.hta.tuitionmanagement.model.ObjectType;
+import com.hta.tuitionmanagement.repo.ObjectTypeRepositoryCustom;
 import com.hta.tuitionmanagement.utils.DataUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FeeRepositoryCustomImpl extends BaseCustomRepository<Fee> implements FeeRepositoryCustom {
+public class ObjectTypeRepositoryCustomImpl extends BaseCustomRepository<ObjectType> implements ObjectTypeRepositoryCustom {
     @Override
     public List search(Map searchParam, Class clazz) {
         Map<String, Object> parameters = new HashMap<>();
         String sql = buildQuery(searchParam, parameters, false);
-        return getResultList(sql, Fee.class, parameters);
+        return getResultList(sql, ObjectType.class, parameters);
     }
 
     @Override
@@ -28,11 +28,11 @@ public class FeeRepositoryCustomImpl extends BaseCustomRepository<Fee> implement
         StringBuilder sb = new StringBuilder();
         if (count) {
             sb.append("SELECT COUNT(id) \n")
-                    .append("FROM fee os \n")
+                    .append("FROM object_type os \n")
                     .append("WHERE 1=1 ");
         } else {
             sb.append("SELECT os.* \n")
-                    .append("FROM fee os \n")
+                    .append("FROM object_type os \n")
                     .append("WHERE 1=1 ");
         }
 
@@ -61,8 +61,4 @@ public class FeeRepositoryCustomImpl extends BaseCustomRepository<Fee> implement
 
         return sb.toString();
     }
-
-
-
-
 }

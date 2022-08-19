@@ -25,5 +25,5 @@ public class FeeDTO extends BaseDTO<String> implements Serializable {
 
     private BigDecimal money;
 
-    private Long student_id;
+//    private Long student_id;
 }

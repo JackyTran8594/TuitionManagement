@@ -33,5 +33,5 @@ public class TrainClass extends Auditable<String> implements Serializable {
     private BigDecimal money;
 
     @OneToMany(mappedBy = "trainClass")
-    private Set<Student> Student;
+    private Set<Student> studentList;
 }

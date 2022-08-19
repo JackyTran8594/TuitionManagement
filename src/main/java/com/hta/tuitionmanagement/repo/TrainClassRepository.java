@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface TrainClassRepository extends JpaRepository<TrainClass, Long>, TrainClassRepositoryCustom {
 
 
-    @Query(value = "DELETE FROM student as s WHERE 1=1 AND s.id IN :listId", nativeQuery = true)
+    @Query(value = "DELETE FROM train_class as s WHERE 1=1 AND s.id IN :listId", nativeQuery = true)
     Integer deleteAll(List<Long> listId);
 }

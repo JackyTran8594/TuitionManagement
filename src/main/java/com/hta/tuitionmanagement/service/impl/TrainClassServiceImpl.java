@@ -46,7 +46,7 @@ public class TrainClassServiceImpl implements TrainClassService {
     @Override
     public TrainClassDTO save(TrainClassDTO dto) {
         TrainClass entity;
-        if (!DataUtils.isNullOrEmpty(dto)) {
+        if (!DataUtils.isNullOrEmpty(dto.getId())) {
             dto.setLastModifiedDate(LocalDateTime.now());
             entity = mapper.toPersistenceBean(dto);
         } else {

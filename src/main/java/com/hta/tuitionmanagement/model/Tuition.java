@@ -35,7 +35,7 @@ public class Tuition extends Auditable<String> implements Serializable {
     private String note;
 
     @ManyToOne
-    @JoinColumn(name = "tuition_id", nullable = true, referencedColumnName = "id")
+    @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id")
     private Student student;
 
 
