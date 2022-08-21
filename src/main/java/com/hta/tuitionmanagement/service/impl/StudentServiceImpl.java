@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.hta.tuitionmanagement.constants.Constant.ACTIVE;
@@ -47,17 +49,28 @@ public class StudentServiceImpl implements StudentService {
     public StudentDTO save(StudentDTO dto) {
         Student entity;
         if (!DataUtils.isNullOrEmpty(dto.getId())) {
-//            dto.setLastModifiedDate(LocalDateTime.now());
-//            entity = mapper.toPersistenceBean(dto);
-            entity = repository.getById(dto.getId());
+            dto.setLastModifiedDate(LocalDateTime.now());
+            entity = mapper.toPersistenceBean(dto);
             entity.setLastModifiedDate(LocalDateTime.now());
-            entity.updateInfo(dto);
-
         } else {
             entity = mapper.toPersistenceBean(dto);
             entity.setStatus(ACTIVE);
         }
         return mapper.toDtoBean((repository.save(entity)));
+    }
+
+    @Override
+    public List<StudentDTO> search(Map<String, Object> mapParam) {
+        Map<String, Object> parameters = new HashMap<>();
+        List<Student> students = repository.search(parameters, Student.class);
+        List<StudentDTO> listDto = mapper.toDtoBean(students);
+        return listDto;
+    }
+
+    @Override
+    public Long count(Map<String, Object> mapParam) {
+        Long count = repository.count(mapParam);
+        return count;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.service.StudentService;
 import com.hta.tuitionmanagement.service.TrainClassService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ public class StudentController extends BaseController{
     private StudentService service;
 
     @PostMapping("")
-    public StudentDTO addStudent(@RequestBody StudentDTO item) {
-        return service.save(item);
+    public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO item) {
+        StudentDTO dto = service.save(item);
+        return ResponseEntity.ok(dto);
     }
 }

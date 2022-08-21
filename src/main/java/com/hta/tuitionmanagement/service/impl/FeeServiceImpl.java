@@ -73,7 +73,6 @@ public class FeeServiceImpl implements FeeService {
 
     @Override
     public Long count(Map<String, Object> mapParam) {
-
         Long count = feeRepository.count(mapParam);
         return count;
     }

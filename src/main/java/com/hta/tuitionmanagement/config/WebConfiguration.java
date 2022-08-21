@@ -14,8 +14,8 @@ import java.util.Locale;
 public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**").allowedMethods("*").allowedOrigins("*").allowedHeaders("*")
-//                .allowCredentials(true);
+        registry.addMapping("/**").allowedMethods("*").allowedOriginPatterns("*").allowedHeaders("*")
+                .allowCredentials(true);
     }
 
     /* Create localeResolver Bean */
