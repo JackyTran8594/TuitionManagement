@@ -1,7 +1,7 @@
 package com.hta.tuitionmanagement.controller;
 
+import com.hta.tuitionmanagement.dto.MessageResponse;
 import com.hta.tuitionmanagement.dto.response.FeeDTO;
-import com.hta.tuitionmanagement.dto.response.RoleDTO;
 import com.hta.tuitionmanagement.service.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,28 +33,56 @@ public class FeeController extends BaseController {
         return new PageImpl<>(listData,page,totalElement);
     }
     @PostMapping("")
-    public FeeDTO addFee(@RequestBody FeeDTO item) {
-        return feeService.save(item);
+    public ResponseEntity<MessageResponse<FeeDTO>> addFee(@RequestBody FeeDTO item) {
+        FeeDTO dto = feeService.save(item);
+        MessageResponse<FeeDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @PutMapping("/{id}")
-    public FeeDTO updateFee(@RequestBody FeeDTO item,@PathVariable final Long id) {
+    public ResponseEntity<MessageResponse<FeeDTO>>  updateFee(@RequestBody FeeDTO item,@PathVariable final Long id) {
         item.setId(id);
-        return feeService.save(item);
+        FeeDTO dto = feeService.save(item);
+        MessageResponse<FeeDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @GetMapping("/{id}")
-    public FeeDTO getById(@PathVariable(value="id") Long id) {
-        return feeService.findById(id);
+    public ResponseEntity<MessageResponse<FeeDTO>>  getById(@PathVariable(value="id") Long id) {
+        FeeDTO dto = feeService.findById(id);
+        MessageResponse<FeeDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteById(@PathVariable(value="id") Long id) {
-        return feeService.deleteById(id);
+    public ResponseEntity<MessageResponse<FeeDTO>> deleteById(@PathVariable(value="id") Long id) {
+        MessageResponse<FeeDTO> message = new MessageResponse<>();
+        try {
+            Boolean del = feeService.deleteById(id);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 
     @PostMapping("/deleteAll")
-    public boolean deleteById(@RequestBody  List<Long> listId) {
-        return feeService.deleteAll(listId);
+    public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody  List<Long> listId) {
+        MessageResponse<String> message = new MessageResponse<>();
+        try {
+            Boolean del = feeService.deleteAll(listId);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 }

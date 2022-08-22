@@ -1,10 +1,13 @@
 package com.hta.tuitionmanagement.controller;
 
+import com.hta.tuitionmanagement.dto.MessageResponse;
 import com.hta.tuitionmanagement.dto.request.TuitionRequest;
+import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.service.TuitionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +20,12 @@ public class TuitionController extends BaseController{
     private TuitionService service;
 
     @PostMapping("")
-    public TuitionDTO addTuition(@RequestBody TuitionRequest item) {
-        return service.save(item);
+    public ResponseEntity<MessageResponse<TuitionDTO>> addTuition(@RequestBody TuitionRequest item) {
+        TuitionDTO dto = service.save(item);
+        MessageResponse<TuitionDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
 }

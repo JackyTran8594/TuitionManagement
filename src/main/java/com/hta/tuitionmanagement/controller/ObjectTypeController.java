@@ -1,12 +1,13 @@
 package com.hta.tuitionmanagement.controller;
 
+import com.hta.tuitionmanagement.dto.MessageResponse;
 import com.hta.tuitionmanagement.dto.response.ObjectTypeDTO;
 import com.hta.tuitionmanagement.service.ObjectTypeService;
-import com.hta.tuitionmanagement.service.TrainClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,28 +33,56 @@ public class ObjectTypeController extends BaseController{
         return new PageImpl<>(listData,page,totalElement);
     }
     @PostMapping("")
-    public ObjectTypeDTO addTrainClass(@RequestBody ObjectTypeDTO item) {
-        return service.save(item);
+    public ResponseEntity<MessageResponse<ObjectTypeDTO>> addTrainClass(@RequestBody ObjectTypeDTO item) {
+        ObjectTypeDTO dto = service.save(item);
+        MessageResponse<ObjectTypeDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @PutMapping("/{id}")
-    public ObjectTypeDTO updateTrainClass(@RequestBody ObjectTypeDTO item,@PathVariable final Long id) {
+    public ResponseEntity<MessageResponse<ObjectTypeDTO>> updateTrainClass(@RequestBody ObjectTypeDTO item,@PathVariable final Long id) {
         item.setId(id);
-        return service.save(item);
+        ObjectTypeDTO dto = service.save(item);
+        MessageResponse<ObjectTypeDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @GetMapping("/{id}")
-    public ObjectTypeDTO getById(@PathVariable(value="id") Long id) {
-        return service.findById(id);
+    public ResponseEntity<MessageResponse<ObjectTypeDTO>> getById(@PathVariable(value="id") Long id) {
+        ObjectTypeDTO dto = service.findById(id);
+        MessageResponse<ObjectTypeDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteById(@PathVariable(value="id") Long id) {
-        return service.deleteById(id);
+    public ResponseEntity<MessageResponse<ObjectTypeDTO>> deleteById(@PathVariable(value="id") Long id) {
+        MessageResponse<ObjectTypeDTO> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteById(id);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 
     @PostMapping("/deleteAll")
-    public boolean deleteById(@RequestBody  List<Long> listId) {
-        return service.deleteAll(listId);
+    public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody  List<Long> listId) {
+        MessageResponse<String> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteAll(listId);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 }

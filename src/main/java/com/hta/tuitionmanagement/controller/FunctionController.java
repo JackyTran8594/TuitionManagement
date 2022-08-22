@@ -1,11 +1,13 @@
 package com.hta.tuitionmanagement.controller;
 
+import com.hta.tuitionmanagement.dto.MessageResponse;
 import com.hta.tuitionmanagement.dto.response.FunctionDTO;
 import com.hta.tuitionmanagement.service.FunctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,29 +35,57 @@ public class FunctionController extends BaseController {
     }
 
     @PostMapping("")
-    public FunctionDTO add(@RequestBody FunctionDTO item) {
-        return service.save(item);
+    public ResponseEntity<MessageResponse<FunctionDTO>> add(@RequestBody FunctionDTO item) {
+        FunctionDTO dto = service.save(item);
+        MessageResponse<FunctionDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @PutMapping("/{id}")
-    public FunctionDTO update(@RequestBody FunctionDTO item,@PathVariable final Long id) {
+    public ResponseEntity<MessageResponse<FunctionDTO>> update(@RequestBody FunctionDTO item,@PathVariable final Long id) {
         item.setId(id);
-        return service.save(item);
+        FunctionDTO dto = service.save(item);
+        MessageResponse<FunctionDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @GetMapping("/{id}")
-    public FunctionDTO getById(@PathVariable(value="id") Long id) {
-        return service.findById(id);
+    public ResponseEntity<MessageResponse<FunctionDTO>> getById(@PathVariable(value="id") Long id) {
+        FunctionDTO dto = service.findById(id);
+        MessageResponse<FunctionDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteById(@PathVariable(value="id") Long id) {
-        return service.deleteById(id);
+    public ResponseEntity<MessageResponse<FunctionDTO>> deleteById(@PathVariable(value="id") Long id) {
+        MessageResponse<FunctionDTO> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteById(id);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 
     @PostMapping("/deleteAll")
-    public boolean deleteById(@RequestBody  List<Long> listId) {
-        return service.deleteAll(listId);
+    public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody  List<Long> listId) {
+        MessageResponse<String> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteAll(listId);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.hta.tuitionmanagement.controller;
 
+import com.hta.tuitionmanagement.dto.MessageResponse;
+import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import com.hta.tuitionmanagement.service.TrainClassService;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,29 +35,57 @@ public class TrainClassController extends BaseController{
         return new PageImpl<>(listData,page,totalElement);
     }
     @PostMapping("")
-    public TrainClassDTO addTrainClass(@RequestBody TrainClassDTO item) {
-        return service.save(item);
+    public ResponseEntity<MessageResponse<TrainClassDTO>> addTrainClass(@RequestBody TrainClassDTO item) {
+        TrainClassDTO dto = service.save(item);
+        MessageResponse<TrainClassDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @PutMapping("/{id}")
-    public TrainClassDTO updateTrainClass(@RequestBody TrainClassDTO item,@PathVariable final Long id) {
+    public ResponseEntity<MessageResponse<TrainClassDTO>> updateTrainClass(@RequestBody TrainClassDTO item,@PathVariable final Long id) {
         item.setId(id);
-        return service.save(item);
+        TrainClassDTO dto = service.save(item);
+        MessageResponse<TrainClassDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @GetMapping("/{id}")
-    public TrainClassDTO getById(@PathVariable(value="id") Long id) {
-        return service.findById(id);
+    public ResponseEntity<MessageResponse<TrainClassDTO>> getById(@PathVariable(value="id") Long id) {
+        TrainClassDTO dto = service.findById(id);
+        MessageResponse<TrainClassDTO> message = new MessageResponse<>();
+        message.setData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteById(@PathVariable(value="id") Long id) {
-        return service.deleteById(id);
+    public ResponseEntity<MessageResponse<TrainClassDTO>> deleteById(@PathVariable(value="id") Long id) {
+        MessageResponse<TrainClassDTO> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteById(id);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 
     @PostMapping("/deleteAll")
-    public boolean deleteById(@RequestBody  List<Long> listId) {
-        return service.deleteAll(listId);
+    public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody  List<Long> listId) {
+        MessageResponse<String> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteAll(listId);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 }
 
