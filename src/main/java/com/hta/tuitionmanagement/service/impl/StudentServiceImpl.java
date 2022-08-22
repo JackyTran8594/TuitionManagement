@@ -61,8 +61,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDTO> search(Map<String, Object> mapParam) {
-        Map<String, Object> parameters = new HashMap<>();
-        List<Student> students = repository.search(parameters, Student.class);
+        List<Student> students = repository.search(mapParam, Student.class);
         List<StudentDTO> listDto = mapper.toDtoBean(students);
         return listDto;
     }
