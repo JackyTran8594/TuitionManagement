@@ -11,4 +11,6 @@ public interface MessageConstant {
     String USERNAME_INACTIVE = "User is inactive";
     String USERNAME_NOTFOUND = "User is not found";
     String SYSTEM_ERROR = "System error";
+
+    String SUCCESS = "Success";
 }
