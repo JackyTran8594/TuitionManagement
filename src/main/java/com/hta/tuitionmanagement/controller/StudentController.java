@@ -81,8 +81,8 @@ public class StudentController extends BaseController {
     }
 
     @PostMapping("/deleteAll")
-    public ResponseEntity<MessageResponse<StudentDTO>> deleteById(@RequestBody List<Long> listId) {
-        MessageResponse<StudentDTO> message = new MessageResponse<>();
+    public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody List<Long> listId) {
+        MessageResponse<String> message = new MessageResponse<>();
         try {
             Boolean del = service.deleteAll(listId);
             message.success();
