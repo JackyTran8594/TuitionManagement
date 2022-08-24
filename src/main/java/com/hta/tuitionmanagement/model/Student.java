@@ -2,10 +2,7 @@ package com.hta.tuitionmanagement.model;
 
 import com.hta.tuitionmanagement.dto.response.StudentDTO;
 import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="student")
+//@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -71,16 +69,16 @@ public class Student extends Auditable<String> implements Serializable {
     @JoinColumn(name = "object_id", referencedColumnName = "id")
     private ObjectType objectType;
 
-    public void updateInfo(StudentDTO dto){
-        setRegistrationId(dto.getRegistrationId());
-        setCourseId(dto.getCourseId());
-        setCitizenId(dto.getCitizenId());
-        setTempName(dto.getTempName());
-        setFirstName(dto.getFirstName());
-        setLastName(dto.getLastName());
-        setFullName(dto.getFullName());
-        setImage(dto.getImage());
-        setNote(dto.getNote());
-
-    }
+//    public void updateInfo(StudentDTO dto){
+//        setRegistrationId(dto.getRegistrationId());
+//        setCourseId(dto.getCourseId());
+//        setCitizenId(dto.getCitizenId());
+//        setTempName(dto.getTempName());
+//        setFirstName(dto.getFirstName());
+//        setLastName(dto.getLastName());
+//        setFullName(dto.getFullName());
+//        setImage(dto.getImage());
+//        setNote(dto.getNote());
+//
+//    }
 }

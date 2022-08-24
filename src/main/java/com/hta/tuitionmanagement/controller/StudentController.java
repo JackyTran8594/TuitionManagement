@@ -84,6 +84,7 @@ public class StudentController extends BaseController {
     public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody List<Long> listId) {
         MessageResponse<String> message = new MessageResponse<>();
         try {
+
             Boolean del = service.deleteAll(listId);
             message.success();
             return ResponseEntity.ok().body(message);

@@ -121,22 +121,22 @@ public abstract class BaseCustomRepository<T> {
         return DataUtils.notNullOrEmpty(data);
     }
 
-    protected <T> T getSingleResult(String query, Class<T> clazz, Map<String, Object> params) {
+    <T> T getSingleResult(String query, Class<T> clazz, Map<String, Object> params) {
         Query nativeQuery = entityManager.createNativeQuery(query, clazz);
         return excuteSingleResult(nativeQuery, params);
     }
 
-    protected <T> List<T> getResultList(String query, String mapping, Map<String, Object> params) {
+    <T> List<T> getResultList(String query, String mapping, Map<String, Object> params) {
         Query nativeQuery = entityManager.createNativeQuery(query, mapping);
-        return excuteSingleResult(nativeQuery, params);
+        return excuteListResultQuery(nativeQuery, params);
     }
 
-    protected <T> List<T> getResultList(String query, Class<T> clazz, Map<String, Object> params) {
+    <T> List<T> getResultList(String query, Class<T> clazz, Map<String, Object> params) {
         Query nativeQuery = entityManager.createNativeQuery(query, clazz);
-        return excuteSingleResult(nativeQuery, params);
+        return excuteListResultQuery(nativeQuery, params);
     }
 
-    protected List<Object[]> getResultList(String query, Map<String, Object> params) {
+    List<Object[]> getResultList(String query, Map<String, Object> params) {
         try {
             Query nativeQuery = entityManager.createNativeQuery(query);
             if (CollectionUtils.isEmpty(params)) {
