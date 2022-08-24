@@ -1,7 +1,9 @@
 package com.hta.tuitionmanagement.service.impl;
 
+import com.hta.tuitionmanagement.dto.response.AuthorizationDTO;
 import com.hta.tuitionmanagement.dto.response.FunctionDTO;
 import com.hta.tuitionmanagement.mapper.BaseMapper;
+import com.hta.tuitionmanagement.mapper.CustomMapper;
 import com.hta.tuitionmanagement.model.Function;
 import com.hta.tuitionmanagement.repo.FunctionRepository;
 import com.hta.tuitionmanagement.service.FunctionService;
@@ -13,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static com.hta.tuitionmanagement.constants.Constant.ACTIVE;
 
@@ -91,6 +90,16 @@ public class FunctionServiceImpl implements FunctionService {
             logger.error(e.getMessage(), e);
             return false;
         }
+    }
+
+    @Override
+    public List<AuthorizationDTO> getAuthorizationList() {
+        List<Function> listData = repository.getAuthorizationList();
+        List<AuthorizationDTO> list = new ArrayList<>();
+        listData.forEach(f ->{
+            list.add(CustomMapper.toAuthorizationDTO(f));
+        });
+        return list;
     }
 
 

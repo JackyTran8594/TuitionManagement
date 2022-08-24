@@ -1,5 +1,6 @@
 package com.hta.tuitionmanagement.model;
 
+import com.hta.tuitionmanagement.dto.response.AuthorizationDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

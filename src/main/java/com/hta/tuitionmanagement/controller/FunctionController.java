@@ -1,6 +1,7 @@
 package com.hta.tuitionmanagement.controller;
 
 import com.hta.tuitionmanagement.dto.MessageResponse;
+import com.hta.tuitionmanagement.dto.response.AuthorizationDTO;
 import com.hta.tuitionmanagement.dto.response.FunctionDTO;
 import com.hta.tuitionmanagement.service.FunctionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,15 @@ public class FunctionController extends BaseController {
             message.error(e.getMessage());
             return ResponseEntity.internalServerError().body(message);
         }
+    }
+
+    @GetMapping("/authorization")
+    public ResponseEntity<MessageResponse<AuthorizationDTO>> getAuthorizationList(){
+        List<AuthorizationDTO> list = service.getAuthorizationList();
+        MessageResponse<AuthorizationDTO> message  = new MessageResponse<>();
+        message.setListData(list);
+        message.success();
+        return ResponseEntity.ok().body(message);
     }
 
 }

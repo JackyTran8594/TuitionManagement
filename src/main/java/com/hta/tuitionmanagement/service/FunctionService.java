@@ -1,5 +1,6 @@
 package com.hta.tuitionmanagement.service;
 
+import com.hta.tuitionmanagement.dto.response.AuthorizationDTO;
 import com.hta.tuitionmanagement.dto.response.FunctionDTO;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface FunctionService {
     Boolean deleteById(Long id);
 
     Boolean deleteAll(List<Long> listId);
+
+    List<AuthorizationDTO> getAuthorizationList();
 
 
 }
