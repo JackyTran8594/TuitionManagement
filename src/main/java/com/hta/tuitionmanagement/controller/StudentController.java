@@ -5,15 +5,19 @@ import com.hta.tuitionmanagement.dto.request.TuitionRequest;
 import com.hta.tuitionmanagement.dto.response.RoleDTO;
 import com.hta.tuitionmanagement.dto.response.StudentDTO;
 import com.hta.tuitionmanagement.dto.response.TuitionDTO;
+import com.hta.tuitionmanagement.model.Student;
 import com.hta.tuitionmanagement.service.StudentService;
 import com.hta.tuitionmanagement.service.TrainClassService;
+import com.hta.tuitionmanagement.utils.XmlFileReaderAndWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,8 @@ public class StudentController extends BaseController {
 
     @Autowired
     private StudentService service;
+
+    private XmlFileReaderAndWriter readerAndWriter;
 
     @GetMapping("")
     public Page<StudentDTO> pageable(@RequestParam Map<String, Object> mapParam, @RequestParam int pageSize, @RequestParam int pageNumber) {
@@ -45,6 +51,23 @@ public class StudentController extends BaseController {
         message.setData(dto);
         message.success();
         return ResponseEntity.ok().body(message);
+    }
+
+    @PostMapping("importFileXml")
+    public ResponseEntity<?> importFileXml(@RequestParam("file") MultipartFile file) {
+
+        MessageResponse<StudentDTO> message = new MessageResponse<>();
+        try {
+            File newFile = readerAndWriter.writer(file);
+            List<Student> stundents = readerAndWriter.reader(newFile);
+            service.saveListFromXmlFile(stundents);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception exception) {
+            message.error();
+            message.setMessage(exception.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
     }
 
     @PutMapping("/{id}")
