@@ -98,13 +98,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Boolean saveListFromXmlFile(List<Student> student) {
-        try {
+    public void saveListFromXmlFile(List<Student> student) {
+//        try {
             repository.saveAll(student);
-            return true;
-        } catch (Exception e) {
-            logger.error(e.getMessage(),e);
-            return false;
-        }
+//            return true;
+//        } catch (Exception e) {
+//            logger.error(e.getMessage(),e);
+//            return false;
+//        }
     }
 }

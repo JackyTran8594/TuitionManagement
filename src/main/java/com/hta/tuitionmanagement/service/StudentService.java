@@ -17,5 +17,5 @@ public interface StudentService {
 
     Boolean deleteAll(List<Long> listId);
 
-    Boolean saveListFromXmlFile(List<Student> student);
+    void saveListFromXmlFile(List<Student> student);
 }

@@ -1,13 +1,9 @@
 package com.hta.tuitionmanagement.controller;
 
 import com.hta.tuitionmanagement.dto.MessageResponse;
-import com.hta.tuitionmanagement.dto.request.TuitionRequest;
-import com.hta.tuitionmanagement.dto.response.RoleDTO;
 import com.hta.tuitionmanagement.dto.response.StudentDTO;
-import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.model.Student;
 import com.hta.tuitionmanagement.service.StudentService;
-import com.hta.tuitionmanagement.service.TrainClassService;
 import com.hta.tuitionmanagement.utils.XmlFileReaderAndWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +25,7 @@ public class StudentController extends BaseController {
     @Autowired
     private StudentService service;
 
-    private XmlFileReaderAndWriter readerAndWriter;
+//    private XmlFileReaderAndWriter readerAndWriter;
 
     @GetMapping("")
     public Page<StudentDTO> pageable(@RequestParam Map<String, Object> mapParam, @RequestParam int pageSize, @RequestParam int pageNumber) {
@@ -58,8 +54,8 @@ public class StudentController extends BaseController {
 
         MessageResponse<StudentDTO> message = new MessageResponse<>();
         try {
-            File newFile = readerAndWriter.writer(file);
-            List<Student> stundents = readerAndWriter.reader(newFile);
+            File newFile = XmlFileReaderAndWriter.writer(file);
+            List<Student> stundents = XmlFileReaderAndWriter.reader(newFile);
             service.saveListFromXmlFile(stundents);
             message.success();
             return ResponseEntity.ok().body(message);

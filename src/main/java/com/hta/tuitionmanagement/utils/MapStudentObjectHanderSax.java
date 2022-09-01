@@ -5,23 +5,16 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class MapStudentObjectHanderSax extends DefaultHandler {
     private StringBuilder currentValue = new StringBuilder();
 
-//
-//    public static List<String> getListPropertiesName(Class<?> clazz) throws Exception {
-//        List<String> propeties = new ArrayList<>();
-//        Field[] fields = clazz.getDeclaredFields();
-//        for (int i = 0; i < fields.length; i++) {
-//            propeties.add(fields[i].getName());
-//        }
-//        return propeties;
-//    }
-
     List<Student> listData;
     Student currentObject;
+
+    private String courseId;
 
     public List<Student> getListData() {
         return listData;
@@ -31,6 +24,13 @@ public class MapStudentObjectHanderSax extends DefaultHandler {
         return currentObject;
     }
 
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
     @Override
     public void startDocument() {
@@ -44,38 +44,14 @@ public class MapStudentObjectHanderSax extends DefaultHandler {
             String qName,
             Attributes attributes) {
 
-
         currentValue.setLength(0);
         // start of loop
 
-        if(qName.equalsIgnoreCase("KHOA_HOC")) {
-            // courseId
-            String courseId = attributes.getValue("MA_KHOA_HOC");
-            currentObject.setCourseId(courseId);
-        }
-
         if (qName.equalsIgnoreCase("NGUOI_LX")) {
+            // create object
             currentObject = new Student();
-            // registration id
-            String registrationId = attributes.getValue("MA_DK");
-            currentObject.setRegistrationId(registrationId);
-            //firstName
-            String firstName = attributes.getValue("HO_TEN_DEM");
-            currentObject.setFirstName(firstName);
-            //lastName
-            String lastName = attributes.getValue("TEN");
-            currentObject.setFirstName(lastName);
-            //fullName
-            String fullName = attributes.getValue("HO_VA_TEN");
-            currentObject.setFirstName(fullName);
-        }
 
-        if(qName.equalsIgnoreCase("HO_SO")) {
-            // courseId
-            String imageStr = attributes.getValue("ANH_CHAN_DUNG");
-            currentObject.setImage(imageStr);
         }
-
 
 
     }
@@ -85,8 +61,46 @@ public class MapStudentObjectHanderSax extends DefaultHandler {
                            String localName,
                            String qName) {
 
+        if (qName.equalsIgnoreCase("MA_KHOA_HOC")) {
+            // courseId
+            this.setCourseId(currentValue.toString());
+
+        }
+
+
+        if (qName.equalsIgnoreCase("MA_DK")) {
+            // registration id
+            currentObject.setRegistrationId(currentValue.toString());
+        }
+
+        if (qName.equalsIgnoreCase("HO_TEN_DEM")) {
+            //firstName
+            currentObject.setFirstName(currentValue.toString());
+
+        }
+
+        if (qName.equalsIgnoreCase("TEN")) {
+            // lastName
+            currentObject.setLastName(currentValue.toString());
+
+        }
+
+        if (qName.equalsIgnoreCase("HO_VA_TEN")) {
+            //fullName
+            currentObject.setFullName(currentValue.toString());
+
+        }
+
+        if (qName.equalsIgnoreCase("ANH_CHAN_DUNG")) {
+            // image
+            byte[] imgByte = Base64.getDecoder().decode(currentValue.toString());
+            currentObject.setImage(imgByte);
+        }
+
+
         // end of loop
         if (qName.equalsIgnoreCase("NGUOI_LX")) {
+            currentObject.setCourseId(this.getCourseId());
             listData.add(currentObject);
         }
 

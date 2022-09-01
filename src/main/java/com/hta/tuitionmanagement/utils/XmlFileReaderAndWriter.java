@@ -27,20 +27,22 @@ public final class XmlFileReaderAndWriter {
 
     }
 
-    public File writer(final MultipartFile file) throws IOException {
-        String filename = file.getName() + Timestamp.valueOf(LocalDateTime.now()).getTime() + ".xml";
+    public static File writer(final MultipartFile file) throws IOException {
+        String filename = file.getOriginalFilename() + Timestamp.valueOf(LocalDateTime.now()).getTime() + ".xml";
         String folder = "C:\\XmlFileBaoCao1\\";
         if (DataUtils.isNullOrEmpty(pathXml)) {
-            pathXml = folder + filename;
+            pathXml = folder;
         }
         File newFile = new File(pathXml + filename);
-        FileOutputStream fos = new FileOutputStream(newFile);
+        // check file is exited
         if (!Files.isDirectory(Paths.get(folder))) {
             new File(folder).mkdir();
             newFile.createNewFile();
         } else {
             newFile.createNewFile();
         }
+
+        FileOutputStream fos = new FileOutputStream(newFile);
         try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fos)) {
             bufferedOutputStream.write(file.getBytes());
         } catch (Exception exception) {
@@ -50,7 +52,7 @@ public final class XmlFileReaderAndWriter {
     }
 
 
-    public List<Student> reader(File file) throws IOException {
+    public static List<Student> reader(File file) throws IOException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         List<Student> students = new ArrayList<>();
         try (FileInputStream inputStream = new FileInputStream(file)) {

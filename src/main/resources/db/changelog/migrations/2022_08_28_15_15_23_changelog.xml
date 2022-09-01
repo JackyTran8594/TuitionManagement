@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="TRANTUANVU (generated)" id="1661699737105-1">
+        <dropForeignKeyConstraint baseTableName="fee" constraintName="FKt1p9cemai6y52k512dh0a8pi5"/>
+    </changeSet>
+    <changeSet author="TRANTUANVU (generated)" id="1661699737105-2">
+        <dropColumn columnName="student_id" tableName="fee"/>
+    </changeSet>
+</databaseChangeLog>

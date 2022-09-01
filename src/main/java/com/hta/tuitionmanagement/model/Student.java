@@ -44,8 +44,8 @@ public class Student extends Auditable<String> implements Serializable {
     @Column(name = "full_name", columnDefinition = "nvarchar(100)")
     private String fullName;
 
-    @Column(name = "image", columnDefinition = "nvarchar(100)")
-    private String image;
+    @Column(name = "image", columnDefinition = "varbinary(max)")
+    private byte[] image;
 
 //    @Column(name = "train_class_id", columnDefinition = "nvarchar(100)")
 //    private String trainClassId;
