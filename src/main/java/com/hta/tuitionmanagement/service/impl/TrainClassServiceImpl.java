@@ -51,7 +51,7 @@ public class TrainClassServiceImpl implements TrainClassService {
 //            entity = mapper.toPersistenceBean(dto);
             entity = repository.getById(dto.getId());
             entity.setLastModifiedDate(LocalDateTime.now());
-            entity.updateInfo(dto);
+//            entity.updateInfo(dto);
 
         } else {
             entity = mapper.toPersistenceBean(dto);
@@ -100,11 +100,8 @@ public class TrainClassServiceImpl implements TrainClassService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = repository.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
+            repository.deleteAll(listId);
+            return true;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;

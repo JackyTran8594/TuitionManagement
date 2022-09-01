@@ -76,7 +76,7 @@ public class TrainClassController extends BaseController{
     }
 
     @PostMapping("/deleteAll")
-    public ResponseEntity<MessageResponse<String>> deleteById(@RequestBody  List<Long> listId) {
+    public ResponseEntity<MessageResponse<String>> deleteByAll(@RequestBody  List<Long> listId) {
         MessageResponse<String> message = new MessageResponse<>();
         try {
             Boolean del = service.deleteAll(listId);
