@@ -50,10 +50,11 @@ public class TuitionServiceImpl implements TuitionService {
         }
         return null;
     }
+
     @Override
     public TuitionDTO save(TuitionRequest item) {
-        Tuition entity ;
-        if(!DataUtils.isNullOrEmpty(item.getId()))
+        Tuition entity;
+        if (!DataUtils.isNullOrEmpty(item.getId()))
             entity = tuitionRepo.findById(item.getId()).get();
         else
             entity = new Tuition();
@@ -61,7 +62,7 @@ public class TuitionServiceImpl implements TuitionService {
         student.setTrainClass(trainClassRepo.findById(item.getTrainClassId()).get());
         student.setObjectType(objectTypeRepo.findById(item.getObjectTypeId()).get());
 
-        if(!DataUtils.isNullOrEmpty(item.getListFeeId())) {
+        if (!DataUtils.isNullOrEmpty(item.getListFeeId())) {
             Set<Fee> list = new HashSet<>();
             item.getListFeeId().forEach(id -> {
                 Fee fee = feeRepo.findById(id).get();
@@ -94,11 +95,8 @@ public class TuitionServiceImpl implements TuitionService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = tuitionRepo.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
+            tuitionRepo.deleteAll(listId);
+            return true;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;

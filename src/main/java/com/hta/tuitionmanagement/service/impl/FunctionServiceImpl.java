@@ -72,7 +72,7 @@ public class FunctionServiceImpl implements FunctionService {
         try {
             repository.deleteById(id);
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;
         }
@@ -81,12 +81,10 @@ public class FunctionServiceImpl implements FunctionService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = repository.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
-        } catch(Exception e) {
+            repository.deleteAll(listId);
+            return true;
+
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;
         }
@@ -96,7 +94,7 @@ public class FunctionServiceImpl implements FunctionService {
     public List<AuthorizationDTO> getAuthorizationList() {
         List<Function> listData = repository.getAuthorizationList();
         List<AuthorizationDTO> list = new ArrayList<>();
-        listData.forEach(f ->{
+        listData.forEach(f -> {
             list.add(CustomMapper.toAuthorizationDTO(f));
         });
         return list;

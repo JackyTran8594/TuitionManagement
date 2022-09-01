@@ -35,6 +35,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository repository;
+
     @Override
     public StudentDTO findById(Long id) {
         Optional<Student> entity = repository.findById(id);
@@ -86,11 +87,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = repository.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
+            repository.deleteAll(listId);
+            return true;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;
@@ -100,7 +98,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveListFromXmlFile(List<Student> student) {
 //        try {
-            repository.saveAll(student);
+        repository.saveAll(student);
 //            return true;
 //        } catch (Exception e) {
 //            logger.error(e.getMessage(),e);

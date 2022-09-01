@@ -96,11 +96,9 @@ public class FeeServiceImpl implements FeeService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = feeRepository.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
+            feeRepository.deleteAll(listId);
+            return true;
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;

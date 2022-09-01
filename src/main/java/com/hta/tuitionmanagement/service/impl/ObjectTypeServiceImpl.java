@@ -29,6 +29,7 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
 
     @Autowired
     private ObjectTypeRepository repository;
+
     @Override
     public ObjectTypeDTO findById(Long id) {
         Optional<ObjectType> entity = repository.findById(id);
@@ -95,11 +96,9 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = repository.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
+            repository.deleteAll(listId);
+            return true;
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;

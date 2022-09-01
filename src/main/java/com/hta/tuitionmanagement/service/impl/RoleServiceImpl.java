@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.hta.tuitionmanagement.constants.Constant.ACTIVE;
+
 @Service
 @Slf4j
 public class RoleServiceImpl implements RoleService {
@@ -89,7 +90,7 @@ public class RoleServiceImpl implements RoleService {
         try {
             repository.deleteById(id);
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;
         }
@@ -98,12 +99,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Boolean deleteAll(List<Long> listId) {
         try {
-            Integer delete = repository.deleteAll(listId);
-            if(delete > 0) {
-                return true;
-            }
-            return false;
-        } catch(Exception e) {
+            repository.deleteAll(listId);
+            return true;
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return false;
         }
@@ -115,7 +113,7 @@ public class RoleServiceImpl implements RoleService {
             List<Role> listEntity = repository.findRoleByUserId(id);
             List<RoleDTO> listData = mapper.toDtoBean(listEntity);
             return listData;
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return null;
         }
