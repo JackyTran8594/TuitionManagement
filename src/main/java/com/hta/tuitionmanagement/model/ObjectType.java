@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -46,11 +47,12 @@ public class ObjectType extends Auditable<String> implements Serializable {
     private Set<Student> studentList;
 
     public void updateInfo(ObjectTypeDTO dto){
-        setHeader(dto.getHeader());
-        setDescription(dto.getDescription());
-        setMoney(dto.getMoney());
-        setSlop(dto.getSlop());
-        setShift(dto.getShift());
-        setIsSpecific(dto.getIsSpecific());
+//        setHeader(dto.getHeader());
+//        setDescription(dto.getDescription());
+//        setMoney(dto.getMoney());
+//        setSlop(dto.getSlop());
+//        setShift(dto.getShift());
+//        setIsSpecific(dto.getIsSpecific());
+        setLastModifiedDate(LocalDateTime.now());
     }
 }

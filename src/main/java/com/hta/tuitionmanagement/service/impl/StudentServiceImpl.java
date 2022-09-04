@@ -50,9 +50,10 @@ public class StudentServiceImpl implements StudentService {
     public StudentDTO save(StudentDTO dto) {
         Student entity;
         if (!DataUtils.isNullOrEmpty(dto.getId())) {
-            dto.setLastModifiedDate(LocalDateTime.now());
+//            dto.setLastModifiedDate(LocalDateTime.now());
+//            entity = repository.getById(dto.getId());
             entity = mapper.toPersistenceBean(dto);
-            entity.setLastModifiedDate(LocalDateTime.now());
+            entity.updateInfo(dto);
         } else {
             entity = mapper.toPersistenceBean(dto);
             entity.setStatus(ACTIVE);

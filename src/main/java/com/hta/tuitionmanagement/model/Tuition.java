@@ -1,5 +1,7 @@
 package com.hta.tuitionmanagement.model;
 
+import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
+import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,5 +40,9 @@ public class Tuition extends Auditable<String> implements Serializable {
     @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id")
     private Student student;
 
+    public void updateInfo(TuitionDTO dto){
+
+        setLastModifiedDate(LocalDateTime.now());
+    }
 
 }

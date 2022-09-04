@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +42,9 @@ public class Fee extends Auditable<String> implements Serializable {
     private Set<Student> studentList = new HashSet<>();
 
     public void updateInfo(FeeDTO dto){
-        setHeader(dto.getHeader());
-        setDescription(dto.getDescription());
-        setMoney(dto.getMoney());
+//        setHeader(dto.getHeader());
+//        setDescription(dto.getDescription());
+//        setMoney(dto.getMoney());
+        setLastModifiedDate(LocalDateTime.now());
     }
 }

@@ -44,8 +44,9 @@ public class RoleServiceImpl implements RoleService {
     public RoleDTO save(RoleDTO item) {
         Role entity;
         if (!DataUtils.isNullOrEmpty(item.getId())) {
-            item.setLastModifiedDate(LocalDateTime.now());
+//            item.setLastModifiedDate(LocalDateTime.now());
             entity = mapper.toPersistenceBean(item);
+            entity.updateInfo(item);
         } else {
             entity = mapper.toPersistenceBean(item);
             entity.setStatus(ACTIVE);

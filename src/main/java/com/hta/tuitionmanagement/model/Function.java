@@ -1,6 +1,8 @@
 package com.hta.tuitionmanagement.model;
 
 import com.hta.tuitionmanagement.dto.response.AuthorizationDTO;
+import com.hta.tuitionmanagement.dto.response.FunctionDTO;
+import com.hta.tuitionmanagement.dto.response.RoleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +43,10 @@ public class Function extends Auditable<String> implements Serializable {
 
     @ManyToMany(mappedBy = "functionList", fetch = FetchType.LAZY)
     private Set<Role> roleList = new HashSet<>();
+
+    public void updateInfo(FunctionDTO dto){
+        setLastModifiedDate(LocalDateTime.now());
+    }
 
 
 }

@@ -1,11 +1,13 @@
 package com.hta.tuitionmanagement.service.impl;
 
 import com.hta.tuitionmanagement.dto.request.TuitionRequest;
+import com.hta.tuitionmanagement.dto.response.TrainClassDTO;
 import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.mapper.BaseMapper;
 import com.hta.tuitionmanagement.mapper.CustomMapper;
 import com.hta.tuitionmanagement.model.Fee;
 import com.hta.tuitionmanagement.model.Student;
+import com.hta.tuitionmanagement.model.TrainClass;
 import com.hta.tuitionmanagement.model.Tuition;
 import com.hta.tuitionmanagement.repo.*;
 import com.hta.tuitionmanagement.service.TuitionService;
@@ -18,10 +20,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+
+import static com.hta.tuitionmanagement.constants.Constant.ACTIVE;
 
 @Service
 @Slf4j
@@ -49,6 +50,36 @@ public class TuitionServiceImpl implements TuitionService {
             return dto;
         }
         return null;
+    }
+
+    @Override
+    public TuitionDTO saveTuition(TuitionDTO item) {
+        Tuition entity;
+        if (!DataUtils.isNullOrEmpty(item.getId())) {
+//            entity = repository.getById(dto.getId());
+//            entity.setLastModifiedDate(LocalDateTime.now());
+            entity = mapper.toPersistenceBean(item);
+            entity.updateInfo(item);
+        } else {
+            entity = mapper.toPersistenceBean(item);
+            entity.setStatus(ACTIVE);
+        }
+        return mapper.toDtoBean((tuitionRepo.save(entity)));
+    }
+
+    @Override
+    public List<TuitionDTO> search(Map<String, Object> mapParam) {
+        Map<String, Object> parameters = new HashMap<>();
+        List<Tuition> listEntity = tuitionRepo.search(mapParam, TrainClass.class);
+        List<TuitionDTO> listData = mapper.toDtoBean(listEntity);
+        return listData;
+    }
+
+    @Override
+    public Long count(Map<String, Object> mapParam) {
+        Map<String, Object> parameters = new HashMap<>();
+        Long count = tuitionRepo.count(mapParam);
+        return count;
     }
 
     @Override

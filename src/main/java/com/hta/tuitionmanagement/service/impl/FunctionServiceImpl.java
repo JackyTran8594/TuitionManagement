@@ -40,13 +40,16 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public FunctionDTO save(FunctionDTO item) {
+    public FunctionDTO save(FunctionDTO dto) {
         Function entity;
-        if (!DataUtils.isNullOrEmpty(item.getId())) {
-            item.setLastModifiedDate(LocalDateTime.now());
-            entity = mapper.toPersistenceBean(item);
+        if (!DataUtils.isNullOrEmpty(dto.getId())) {
+//            item.setLastModifiedDate(LocalDateTime.now());
+            entity = repository.getById(dto.getId());
+            entity = mapper.toPersistenceBean(dto);
+            entity.updateInfo(dto);
+
         } else {
-            entity = mapper.toPersistenceBean(item);
+            entity = mapper.toPersistenceBean(dto);
             entity.setStatus(ACTIVE);
         }
         return mapper.toDtoBean(repository.save(entity));

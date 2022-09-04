@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -37,8 +38,9 @@ public class TrainClass extends Auditable<String> implements Serializable {
     private Set<Student> studentList;
 
     public void updateInfo(TrainClassDTO dto){
-        setHeader(dto.getHeader());
-        setDescription(dto.getDescription());
-        setMoney(dto.getMoney());
+//        setHeader(dto.getHeader());
+//        setDescription(dto.getDescription());
+//        setMoney(dto.getMoney());
+        setLastModifiedDate(LocalDateTime.now());
     }
 }

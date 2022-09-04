@@ -1,5 +1,6 @@
 package com.hta.tuitionmanagement.model;
 
+import com.hta.tuitionmanagement.dto.response.UserEntityDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,4 +48,11 @@ public class UserEntity extends Auditable<String> implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
+
+    public void updateInfo(UserEntityDTO dto){
+//        setHeader(dto.getHeader());
+//        setDescription(dto.getDescription());
+//        setMoney(dto.getMoney());
+        setLastModifiedDate(LocalDateTime.now());
+    }
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,7 +70,7 @@ public class Student extends Auditable<String> implements Serializable {
     @JoinColumn(name = "object_id", referencedColumnName = "id")
     private ObjectType objectType;
 
-//    public void updateInfo(StudentDTO dto){
+    public void updateInfo(StudentDTO dto){
 //        setRegistrationId(dto.getRegistrationId());
 //        setCourseId(dto.getCourseId());
 //        setCitizenId(dto.getCitizenId());
@@ -77,8 +78,8 @@ public class Student extends Auditable<String> implements Serializable {
 //        setFirstName(dto.getFirstName());
 //        setLastName(dto.getLastName());
 //        setFullName(dto.getFullName());
-//        setImage(dto.getImage());
 //        setNote(dto.getNote());
-//
-//    }
+        setLastModifiedDate(LocalDateTime.now());
+
+    }
 }
