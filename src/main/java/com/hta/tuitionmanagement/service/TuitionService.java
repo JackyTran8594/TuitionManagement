@@ -13,12 +13,11 @@ public interface TuitionService {
 
     TuitionDTO saveTuition(TuitionDTO item);
 
+    List<TuitionDTO> getAllWithId(Long id);
 
-    //    List<TuitionDTO> findAll();
     List<TuitionDTO> search(Map<String, Object> mapParam);
 //
     Long count(Map<String, Object> mapParam);
-//    TuitionDTO findByCode(String code);
     Boolean deleteById(Long id);
 
     Boolean deleteAll(List<Long> listId);

@@ -14,7 +14,7 @@ public class TuitionRepositoryCustomImpl extends BaseCustomRepository<Tuition> i
     public List search(Map searchParam, Class clazz) {
         Map<String, Object> parameters = new HashMap<>();
         String sql = buildQuery(searchParam, parameters, false);
-        return getResultList(sql, TrainClass.class, parameters);
+        return getResultList(sql, Tuition.class, parameters);
     }
 
     @Override
@@ -37,12 +37,13 @@ public class TuitionRepositoryCustomImpl extends BaseCustomRepository<Tuition> i
                     .append("WHERE 1=1 ");
         }
 
-        if (paramsSearch.containsKey("txtSearch")) {
-            if(!DataUtils.isNullOrEmpty(paramsSearch.get("txtSearch"))) {
-                sb.append("AND (UPPER(os.student_id) LIKE :txtSearch)");
-                params.put("txtSearch", formatLike((String) paramsSearch.get("txtSearch")).toUpperCase());
+        if (paramsSearch.containsKey("param")) {
+            if(!DataUtils.isNullOrEmpty(paramsSearch.get("param"))) {
+                sb.append("AND os.student_id = :param");
+                params.put("param", DataUtils.parseToInt(paramsSearch.get("param")));
             }
         }
+
         if (!count) {
             if (paramsSearch.containsKey("sort")) {
                 sb.append(formatSort((String) paramsSearch.get("sort"), " ORDER BY os.id ASC "));

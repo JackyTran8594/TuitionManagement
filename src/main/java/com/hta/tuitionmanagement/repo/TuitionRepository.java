@@ -14,4 +14,7 @@ public interface TuitionRepository extends JpaRepository<Tuition, Long>, Tuition
     @Transactional
     @Query(value = "DELETE FROM tuition WHERE 1=1 AND id IN :listId", nativeQuery = true)
     Integer deleteAll(List<Long> listId);
+
+    List<Tuition> findAllByStudentId(Long id);
+
 }

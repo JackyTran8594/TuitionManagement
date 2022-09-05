@@ -60,17 +60,32 @@ public class TuitionServiceImpl implements TuitionService {
 //            entity.setLastModifiedDate(LocalDateTime.now());
             entity = mapper.toPersistenceBean(item);
             entity.updateInfo(item);
+
         } else {
             entity = mapper.toPersistenceBean(item);
             entity.setStatus(ACTIVE);
+        }
+        if(!DataUtils.isNullOrEmpty(item.getStudentId())) {
+            Optional<Student> student = studentRepo.findById(item.getStudentId());
+            if(student.isPresent()) {
+                entity.setStudent(student.get());
+            }
+
         }
         return mapper.toDtoBean((tuitionRepo.save(entity)));
     }
 
     @Override
+    public List<TuitionDTO> getAllWithId(Long id) {
+        List<Tuition> entities = tuitionRepo.findAllByStudentId(id);
+        List<TuitionDTO> listData = mapper.toDtoBean(entities);
+        return listData;
+    }
+
+    @Override
     public List<TuitionDTO> search(Map<String, Object> mapParam) {
         Map<String, Object> parameters = new HashMap<>();
-        List<Tuition> listEntity = tuitionRepo.search(mapParam, TrainClass.class);
+        List<Tuition> listEntity = tuitionRepo.search(mapParam, Tuition.class);
         List<TuitionDTO> listData = mapper.toDtoBean(listEntity);
         return listData;
     }
