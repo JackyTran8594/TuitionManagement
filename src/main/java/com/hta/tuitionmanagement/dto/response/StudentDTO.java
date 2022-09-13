@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Column;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -33,6 +31,8 @@ public class StudentDTO extends BaseDTO<String> implements Serializable {
     private String image;
 
     private String note;
+
+    private String teacher;
 
 //    private Long trainClassId;
 

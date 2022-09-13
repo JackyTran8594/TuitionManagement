@@ -62,6 +62,15 @@ public class TrainClassController extends BaseController{
         return ResponseEntity.ok().body(message);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<MessageResponse<TrainClassDTO>>  getAll() {
+        List<TrainClassDTO> dto = service.findAll();
+        MessageResponse<TrainClassDTO> message = new MessageResponse<>();
+        message.setListData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageResponse<TrainClassDTO>> deleteById(@PathVariable(value="id") Long id) {
         MessageResponse<TrainClassDTO> message = new MessageResponse<>();

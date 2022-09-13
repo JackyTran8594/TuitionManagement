@@ -51,6 +51,15 @@ public class FeeController extends BaseController {
         return ResponseEntity.ok().body(message);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<MessageResponse<FeeDTO>>  getAll() {
+        List<FeeDTO> dto = feeService.findAll();
+        MessageResponse<FeeDTO> message = new MessageResponse<>();
+        message.setListData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<MessageResponse<FeeDTO>>  getById(@PathVariable(value="id") Long id) {
         FeeDTO dto = feeService.findById(id);

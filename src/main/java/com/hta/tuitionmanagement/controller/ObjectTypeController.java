@@ -60,6 +60,15 @@ public class ObjectTypeController extends BaseController{
         return ResponseEntity.ok().body(message);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<MessageResponse<ObjectTypeDTO>>  getAll() {
+        List<ObjectTypeDTO> dto = service.findAll();
+        MessageResponse<ObjectTypeDTO> message = new MessageResponse<>();
+        message.setListData(dto);
+        message.success();
+        return ResponseEntity.ok().body(message);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageResponse<ObjectTypeDTO>> deleteById(@PathVariable(value="id") Long id) {
         MessageResponse<ObjectTypeDTO> message = new MessageResponse<>();

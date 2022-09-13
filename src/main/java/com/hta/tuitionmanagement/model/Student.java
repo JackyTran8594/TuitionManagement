@@ -56,6 +56,9 @@ public class Student extends Auditable<String> implements Serializable {
     private TrainClass trainClass;
 
     //Tên người bảo trợ (giáo viên phụ trách)
+    @Column(name = "teacer", columnDefinition = "nvarchar(200)")
+    private String teacher;
+
     @Column(name = "note", columnDefinition = "nvarchar(500)")
     private String note;
 
