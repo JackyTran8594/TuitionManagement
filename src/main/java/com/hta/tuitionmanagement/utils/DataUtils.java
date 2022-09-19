@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.time.*;
 import java.text.*;
@@ -62,9 +63,8 @@ public class DataUtils {
         return input != null && !input.trim().isEmpty();
     }
 
-
     public static String parseToString(Object obj) {
-        if(isNull(obj)) {
+        if (isNull(obj)) {
             return null;
         }
         return String.valueOf(obj);
@@ -76,7 +76,7 @@ public class DataUtils {
 
     public static Integer parseToInt(Object obj, Integer value) {
         String tmp = parseToString(obj);
-        if(isNull(tmp)) {
+        if (isNull(tmp)) {
             return null;
         }
         return Integer.valueOf(tmp);
@@ -291,7 +291,6 @@ public class DataUtils {
         return randomNumber;
     }
 
-
     public static String camelToSnake(String str) {
         // Regular Expression
         String regex = "([a-z])([A-Z]+)";
@@ -312,13 +311,13 @@ public class DataUtils {
     }
 
     public static String replaceAll(String input, String find, String replace) {
-        if(DataUtils.notNull(input)) {
+        if (DataUtils.notNull(input)) {
             return input.replaceAll(find, replace);
         }
         return null;
     }
 
-    // import file mau 
+    // import file mau
     public static InputStream readInputStreamResource(String path) throws Exception {
         ClassPathResource classPathResource = new ClassPathResource(path);
         return classPathResource.getInputStream();
@@ -328,11 +327,8 @@ public class DataUtils {
         ClassPathResource classPathResource = new ClassPathResource(path);
         return classPathResource.getInputStream().readAllBytes();
     }
-    // end 
+    // end
 
-
-
-    
     public static boolean safeEqual(Object obj1, Object obj2) {
         return ((obj1 != null) && (obj2 != null) && obj2.toString().equals(obj1.toString()));
     }
@@ -368,5 +364,13 @@ public class DataUtils {
                 .readValue(json, typeFactory.constructCollectionType(List.class, classOutput));
     }
 
+    public static <T> List<String> getNameOfProperty(Class<T> classOutput) throws Exception {
+        List<String> classNameList = new ArrayList<>();
+        Field[] fields = classOutput.getDeclaredFields();
+        for (Field field : fields) {
+           classNameList.add(field.getName());
+        }
+        return classNameList;
+    }
 
 }

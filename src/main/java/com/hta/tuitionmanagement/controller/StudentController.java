@@ -4,7 +4,8 @@ import com.hta.tuitionmanagement.dto.MessageResponse;
 import com.hta.tuitionmanagement.dto.response.StudentDTO;
 import com.hta.tuitionmanagement.model.Student;
 import com.hta.tuitionmanagement.service.StudentService;
-import com.hta.tuitionmanagement.utils.XmlFileReaderAndWriter;
+import com.hta.tuitionmanagement.utils.xml.XmlFileReaderAndWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

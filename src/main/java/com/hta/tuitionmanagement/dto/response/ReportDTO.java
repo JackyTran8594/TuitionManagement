@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @AllArgsConstructor
@@ -35,16 +36,20 @@ public class ReportDTO implements Serializable {
 
     private String fullName;
 
-    private String image;
+    // private String image;
 
-    private String note;
+    // private String note;
 
     private String teacher;   
 
     private String header;
 
-    private String tuitionFeePaid;
+    private Long tuitionFeePaid;
 
-    private String tuitionFeePayable;
+    private Long tuitionFeePayable;
+
+    public List<String> headers() {
+        return Arrays.asList("id", "Mã học viên", "Mã khóa học", "CMT/CCCD", "Tên đệm", "Họ", "Tên", "Họ và tên", "Giáo viên hướng dẫn", "Header", "Học phí đã nộp", "Học phí");
+    }
 
 }

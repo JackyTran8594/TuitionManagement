@@ -1,4 +1,4 @@
-package com.hta.tuitionmanagement.utils;
+package com.hta.tuitionmanagement.utils.xml;
 
 import com.hta.tuitionmanagement.model.Student;
 import org.xml.sax.Attributes;

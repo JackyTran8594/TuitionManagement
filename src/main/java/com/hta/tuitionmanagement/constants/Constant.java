@@ -10,5 +10,8 @@ public class Constant {
     public static final String AINCTIVE ="AINCTIVE";
     public static final String ACTION_USER = "ACTION_USER";
 
+    public static final String EXPORT_TYPE_DOC = "DOC";
+    public static final String EXPORT_TYPE_DOCx = "DOCX";
+    public static final String EXPORT_TYPE_EXCEL = "EXCEL";
 
 }
