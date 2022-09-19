@@ -3,14 +3,21 @@ package com.hta.tuitionmanagement.utils;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.time.*;
+import java.text.*;
+import java.util.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.util.HtmlUtils;
 
 @Slf4j
 public class DataUtils {
@@ -303,5 +310,63 @@ public class DataUtils {
         // return string
         return str;
     }
+
+    public static String replaceAll(String input, String find, String replace) {
+        if(DataUtils.notNull(input)) {
+            return input.replaceAll(find, replace);
+        }
+        return null;
+    }
+
+    // import file mau 
+    public static InputStream readInputStreamResource(String path) throws Exception {
+        ClassPathResource classPathResource = new ClassPathResource(path);
+        return classPathResource.getInputStream();
+    }
+
+    public static byte[] readFileResource(String path) throws Exception {
+        ClassPathResource classPathResource = new ClassPathResource(path);
+        return classPathResource.getInputStream().readAllBytes();
+    }
+    // end 
+
+
+
+    
+    public static boolean safeEqual(Object obj1, Object obj2) {
+        return ((obj1 != null) && (obj2 != null) && obj2.toString().equals(obj1.toString()));
+    }
+
+    public static boolean safeEqualIgnoreCase(Object obj1, Object obj2) {
+        return ((obj1 != null) && (obj2 != null) && obj2.toString().equalsIgnoreCase(obj1.toString()));
+    }
+
+    public static String htmlUnescape(String data) {
+        if (data == null) {
+            return null;
+        }
+        return HtmlUtils.htmlUnescape(data);
+    }
+
+    public static String formatCurrency(BigInteger number) {
+        Locale loc = new Locale("vi", "VN");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(loc);
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
+        return nf.format(number).trim();
+    }
+
+    public static <T> List<T> jsonToList(String json, Class<T> classOutput) throws IOException {
+        if (isNull(json)) {
+            return Collections.emptyList();
+        }
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        TypeFactory typeFactory = objectMapper.getTypeFactory();
+        return objectMapper
+                .readValue(json, typeFactory.constructCollectionType(List.class, classOutput));
+    }
+
 
 }

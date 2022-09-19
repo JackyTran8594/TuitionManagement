@@ -10,4 +10,5 @@ public class Constant {
     public static final String AINCTIVE ="AINCTIVE";
     public static final String ACTION_USER = "ACTION_USER";
 
+
 }
