@@ -2,7 +2,6 @@ package com.hta.tuitionmanagement.service.impl;
 
 import com.hta.tuitionmanagement.dto.request.TuitionRequest;
 import com.hta.tuitionmanagement.dto.response.StudentDTO;
-import com.hta.tuitionmanagement.dto.response.StudentDTO;
 import com.hta.tuitionmanagement.dto.response.TuitionDTO;
 import com.hta.tuitionmanagement.mapper.BaseMapper;
 import com.hta.tuitionmanagement.mapper.CustomMapper;
