@@ -1,28 +1,27 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-    <changeSet author="Modern 14 (generated)" id="1660757504054-1">
+    <changeSet author="PC (generated)" id="1664293842555-1">
         <createTable tableName="fee">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="feePK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
             <column name="description" type="nvarchar(1000)"/>
             <column name="header" type="nvarchar(1000)"/>
             <column name="money" type="numeric(18, 2)"/>
-            <column name="student_id" type="bigint"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-2">
+    <changeSet author="PC (generated)" id="1664293842555-2">
         <createTable tableName="function">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="functionPK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
@@ -33,13 +32,13 @@
             <column name="parent_code" type="varchar(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-3">
-        <createTable tableName="object_list">
+    <changeSet author="PC (generated)" id="1664293842555-3">
+        <createTable tableName="object_type">
             <column autoIncrement="true" name="id" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="object_listPK"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="object_typePK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
@@ -51,13 +50,13 @@
             <column name="slop" type="float(53)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-4">
+    <changeSet author="PC (generated)" id="1664293842555-4">
         <createTable tableName="role">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="rolePK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
@@ -66,7 +65,7 @@
             <column name="name" type="nvarchar(100)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-5">
+    <changeSet author="PC (generated)" id="1664293842555-5">
         <createTable tableName="role_function">
             <column name="role_id" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
@@ -76,13 +75,13 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-6">
+    <changeSet author="PC (generated)" id="1664293842555-6">
         <createTable tableName="student">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="studentPK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
@@ -90,21 +89,33 @@
             <column name="course_id" type="varchar(255)"/>
             <column name="first_name" type="nvarchar(100)"/>
             <column name="full_name" type="nvarchar(100)"/>
-            <column name="image" type="nvarchar(100)"/>
+            <column name="image" type="varbinary(1)"/>
             <column name="last_name" type="nvarchar(100)"/>
             <column name="note" type="nvarchar(500)"/>
             <column name="registration_id" type="varchar(255)"/>
+            <column name="teacer" type="nvarchar(200)"/>
             <column name="temp_name" type="nvarchar(100)"/>
+            <column name="object_id" type="bigint"/>
             <column name="train_class_id" type="bigint"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-7">
+    <changeSet author="PC (generated)" id="1664293842555-7">
+        <createTable tableName="student_fee">
+            <column name="student_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fee_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="PC (generated)" id="1664293842555-8">
         <createTable tableName="train_class">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="train_classPK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
@@ -113,29 +124,31 @@
             <column name="money" type="numeric(18, 2)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-8">
+    <changeSet author="PC (generated)" id="1664293842555-9">
         <createTable tableName="tuition">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="tuitionPK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
             <column name="money" type="numeric(18, 2)"/>
             <column name="note" type="nvarchar(500)"/>
             <column name="time_stamp" type="datetime2"/>
-            <column name="tuition_id" type="bigint"/>
+            <column name="student_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-9">
+    <changeSet author="PC (generated)" id="1664293842555-10">
         <createTable tableName="user_entity">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="user_entityPK"/>
             </column>
-            <column name="created_date" type="datetime2"/>
             <column name="created_by" type="varchar(255)"/>
+            <column name="created_date" type="datetime2"/>
             <column name="last_modified_by" type="varchar(255)"/>
             <column name="last_modified_date" type="datetime2"/>
             <column name="status" type="varchar(20)"/>
@@ -149,22 +162,28 @@
             <column name="role_id" type="bigint"/>
         </createTable>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-10">
-        <addForeignKeyConstraint baseColumnNames="tuition_id" baseTableName="tuition" constraintName="FK47d5j4qtepel1kx7vvl5fregg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="student" validate="true"/>
-    </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-11">
+    <changeSet author="PC (generated)" id="1664293842555-11">
         <addForeignKeyConstraint baseColumnNames="function_id" baseTableName="role_function" constraintName="FK4dphexeqfirp7d1tpy9lm4x7b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="function" validate="true"/>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-12">
+    <changeSet author="PC (generated)" id="1664293842555-12">
         <addForeignKeyConstraint baseColumnNames="train_class_id" baseTableName="student" constraintName="FKaydmi807l783u2fo07rocrqij" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="train_class" validate="true"/>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-13">
+    <changeSet author="PC (generated)" id="1664293842555-13">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="student_fee" constraintName="FKesudo1i3xsjulovy4enioa0kc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="student" validate="true"/>
+    </changeSet>
+    <changeSet author="PC (generated)" id="1664293842555-14">
+        <addForeignKeyConstraint baseColumnNames="fee_id" baseTableName="student_fee" constraintName="FKirnsgs3ymn7hmb1i05lgyl5d1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="fee" validate="true"/>
+    </changeSet>
+    <changeSet author="PC (generated)" id="1664293842555-15">
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_entity" constraintName="FKji3yqmrrat4jkqnpfla6tpkqx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" validate="true"/>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-14">
+    <changeSet author="PC (generated)" id="1664293842555-16">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="tuition" constraintName="FKmw01a1icmtp696yk6tcruqwce" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="student" validate="true"/>
+    </changeSet>
+    <changeSet author="PC (generated)" id="1664293842555-17">
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_function" constraintName="FKnni0m4md3cq3f7wbwgrv9i5wb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" validate="true"/>
     </changeSet>
-    <changeSet author="Modern 14 (generated)" id="1660757504054-15">
-        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="fee" constraintName="FKt1p9cemai6y52k512dh0a8pi5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="student" validate="true"/>
+    <changeSet author="PC (generated)" id="1664293842555-18">
+        <addForeignKeyConstraint baseColumnNames="object_id" baseTableName="student" constraintName="FKo6e61om6oamq9wot97j32oean" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="object_type" validate="true"/>
     </changeSet>
 </databaseChangeLog>
