@@ -89,7 +89,7 @@
             <column name="course_id" type="varchar(255)"/>
             <column name="first_name" type="nvarchar(100)"/>
             <column name="full_name" type="nvarchar(100)"/>
-            <column name="image" type="varbinary(1)"/>
+            <column name="image" type="varbinary(max)"/>
             <column name="last_name" type="nvarchar(100)"/>
             <column name="note" type="nvarchar(500)"/>
             <column name="registration_id" type="varchar(255)"/>
