@@ -88,4 +88,17 @@ public class RoleController extends BaseController {
         }
     }
 
+    @PostMapping("/test")
+    public ResponseEntity<MessageResponse<String>> test(@RequestBody  List<Long> listId) {
+        MessageResponse<String> message = new MessageResponse<>();
+        try {
+            Boolean del = service.deleteAll(listId);
+            message.success();
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            message.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
+        }
+    }
+
 }
